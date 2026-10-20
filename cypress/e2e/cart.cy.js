@@ -31,4 +31,27 @@ describe('Carrinho de compras', () => {
     cy.contains('Sauce Labs Backpack')
       .should('be.visible');
   });
+
+  it('deve remover um produto do carrinho', () => {
+  cy.get('[data-test="add-to-cart-sauce-labs-backpack"]')
+    .click();
+
+  cy.get('.shopping_cart_badge')
+    .should('have.text', '1');
+
+  cy.get('[data-test="remove-sauce-labs-backpack"]')
+    .click();
+
+  cy.get('.shopping_cart_badge')
+    .should('not.exist');
+
+  cy.get('[data-test="shopping-cart-link"]')
+    .click();
+
+  cy.get('.cart_item')
+    .should('not.exist');
+
+  cy.contains('Sauce Labs Backpack')
+    .should('not.exist');
+});
 });
